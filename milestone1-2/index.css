@@ -1,0 +1,151 @@
+.container{
+   display: flex;
+}
+.left-card{
+    background-color: rgb(3, 24, 3);
+    color:white;
+    width: 350px;
+    border-radius: 14px;
+}
+.image{
+    text-align: center;
+}
+.image img{
+    border-radius: 50%;
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+.personalInfo h2{
+    font-size: 30px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+.personalInfo  strong{
+    font-size: 20px;
+    margin-left: 10px;
+}
+.personalInfo p{
+    font-size: 15px;
+}
+.personalInfo{
+    
+    padding: 4px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 320px;
+}
+.about h3{   
+    font-size: 30px;
+    margin-left: 5px;
+}
+.about p{
+    margin-left: 5px;
+}
+
+
+.Skills-container {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%; 
+    text-align: left;
+    position: relative;
+}
+
+.Skills-container h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.skills-list {
+    max-height: 180px;
+    overflow: hidden; 
+}
+
+.skills-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skills-list li {
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #444444;
+}
+.hidden-skill {
+    display: none; 
+}
+
+.togglebtn button{
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #0a2008;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 30%;
+    margin-right: auto;
+}
+
+.togglebtn button:hover {
+    background-color: #fff;
+    color: #123012;
+    font-size: 1rem;
+}
+.right-section {
+    color: #0a0a0a;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0px 0;
+    text-align: left;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.right-section h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+    color: #123012;
+    padding: 4px;
+    width: 250px; 
+    text-align: center;
+    border-radius: 35px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right-section h3, .right-section p, .education h3, .education p {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #000000; 
+}
+
+.right-section p, .education p {
+    font-size: 15px;
+    margin-bottom: 8px;
+    line-height: 1.2rem;
+    color: #000000; 
+}
+
+.right-section strong, .education strong {
+    color: #000000; 
+}
+
+.education {
+    padding: 20px;
+    margin-top: 20px; 
+}
+.education li{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
