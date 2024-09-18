@@ -1,0 +1,236 @@
+.container{
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.card{
+    display: flex;
+    border: 2px solid #222121;
+}
+h1{
+    text-align: center;
+    font-weight: bold;
+}
+form {
+    background-color: #222121; 
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    padding: 20px;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+ 
+form h2 {
+    font-size: 30px;
+    color: #ffffff; 
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+ 
+form label {
+    display: block;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 15px;
+    margin-left: 15%;
+    color: #ffffff; 
+}
+ 
+form input, form textarea {
+    display: block;
+    width: 70%; 
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+   
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+form button {
+    display: block;
+    margin: 3% auto; 
+    padding: 5px 5px;
+    background-color: #1f1e1e; 
+    color: #ffffff;
+    border-radius: 15px;
+    width: 30%;
+    cursor: pointer;
+    font-size: 1rem;
+}
+ 
+form button:hover {
+    background-color: #000000; 
+}
+ 
+#resumeDisplay { 
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#image {
+    border-radius: 50%;
+    border:2px solid #ffcf0f;
+    margin-top: 5%;
+    margin-left: 3%;
+    margin-bottom: 2%;
+}
+.personalInfo h2{
+    font-size: 28px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+.personalInfo  strong{
+    font-size: 20px;
+    margin-left: 10px;
+}
+.personalInfo p{
+    font-size: 20px;
+}
+.personalInfo{
+    background-color: #424442;
+    padding: 4px;
+   
+    margin-top: 0%;
+    width: 350px;
+}
+.about h3{   
+    font-size: 28px;
+    margin-left: 5px;
+}
+.about p{
+    margin-left: 5px;
+}
+
+.personalInformation ,.personalInformation h2{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #424442;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%; 
+}
+.personalInformation h2{
+    padding: 10px;
+    border-radius: 10px;
+    border-bottom: 2px solid #ffcf0f;
+    background-color: #424442;
+    max-width: 100%; 
+}
+.Skills-container {
+    padding: 10px;
+    background-color: #424442;
+    border-radius: 10px;
+    margin-top: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%; 
+    text-align: left;
+    position: relative;
+}
+
+.Skills-container h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.Skills-list {
+    max-height: 100%;
+    overflow: hidden; 
+}
+
+.experience{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #424442;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%; 
+    text-align: left;
+    margin-top: 5%;
+    position: relative;
+}
+.education{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #424442;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%; 
+    text-align: left;
+    margin-top: 5%;
+    position: relative;
+}
+
+#generateButton{
+    width: 100%;
+    margin: 0px auto; 
+    margin-top: 5%;
+    padding: 10px 5px;
+    background-color: #1f1e1e; 
+    color: #ffffff;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.secondSection {
+    width: 100%; 
+    padding: 10px;
+}
+.secondSection h2 {
+    background-color: #424442; 
+    color: white; 
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 28px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ffcf0f; 
+}
+
+.secondSection p {
+    color: #020202; 
+    line-height: 1.8;
+    margin: 10px;
+    font-size: 16px;
+}
+
+.experienceDisplay strong {
+    color: #000000;
+    font-size: 18px;
+}
+
+.skills-container {
+    margin-top: 20px;
+}
+
+.skills-list {
+    margin-top: 10px;
+    padding-left: 20px; 
+}
+
+.skills-list li {
+    margin-bottom: 8px;
+    color: #000000; 
+    font-size: 16px;
+}
+
+.experienceDisplay p {
+    margin: 5px ;
+    font-size: 15px;
+    color: #000000;
+}
+
+.experienceDisplay h2 {
+    margin-bottom: 10px;
+    color: #fff; 
+    font-size: 24px;
+    text-align: center;
+}
+
+  
