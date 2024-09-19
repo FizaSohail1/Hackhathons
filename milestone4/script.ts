@@ -42,7 +42,6 @@ ResumeForm.addEventListener('submit', (event: Event) => {
     const skills = Array.from(skillInputs).map(skillInput => skillInput.value).filter(skill => skill.trim() !== '');
 
     const resumeHTML = `
-        <h1>Resume</h1>
         <div class="card">
           <div class="personalInfo">
            <img src="${ImageUrl}" alt="Profile Image" height="250px" width="250px" id="image" contenteditable="true"/>
@@ -99,7 +98,8 @@ GenerateButton.addEventListener('click', function() {
 saveButton.addEventListener('click',function() {
 
 GenerateButton.style.display ='none';
- saveButton.style.display = 'none'
+ saveButton.style.display = 'none';
+ ResumeForm.style.display = 'none';
 
  alert('Resume Saved Successfully')
 });
