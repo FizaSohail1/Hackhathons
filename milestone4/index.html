@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/milestone4/index.css">
+    <title>Editable Resume Builder</title>
+</head>
+<body>
+    <h1>Editable Resume Builder</h1>
+    <div class="container">
+        <form action="" id="resumeForm">
+                <div class="personalInformation">
+                    <h2>Personal Info</h2>
+                    <div class="image">
+                        <label for="Profile Image">Profile Image</label>
+                        <input type="file" id="img" accept="image/*" required>
+                    </div>
+                    <label for="Full Name">Name</label>
+                    <input type="text" placeholder="Enter your name" id="name" required>
+                    <label for="Email">Email</label>
+                    <input type="email" placeholder="Enter your email" id="email" required>
+                    <label for="Phone">Phone No:</label>
+                    <input type="text" placeholder="Enter your Phone No" id="contact"required>
+                    <label for="About Me">About</label>
+                    <textarea type="text" rows="4" id="about" required></textarea>
+                </div>
+
+                <div class="secondSection">
+                <div class="Skills-container">
+                    <h2>Skills</h2>
+                    <div class="skills-list">
+                        <input type="text" id="skills">
+                        <input type="text" id="skills">
+                        <input type="text" id="skills">
+                    </div>
+                        <div class="addmore">
+                            <button id="addmoreSkills">Add Skills</button>
+                        </div>              
+                </div>
+
+            
+                <div class="experience">
+                    <h2>Work Experience</h2>
+                    <label for="company name">Employers</label>
+                    <input type="text" placeholder="" id="company"required>
+                    <label for="Position">Position</label>
+                    <input type="text" placeholder="" id="position"required>
+                    <label for="fromdate">Start date</label>
+                    <input type="date" id="startDate" required>
+                    <label for="To date">End date</label>
+                    <input type="date" id="endDate">
+                    <label for="Job description">Job description</label>
+                    <textarea type="text" rows="5" id="experienceDescription"required></textarea>
+                </div>
+                <div class="education">
+                    <h2>Education</h2>
+                    <label for="Degree">Qualification</label>
+                    <input type="text" id="degree"required>
+                    
+                    <label for="school/college/university">School/College/University</label>
+                    <input type="text" id="school" required>
+                    
+                    <label for="Job description" >Acadamic Year</label>
+                    <input type="text" placeholder="" id="academicYear"required>
+
+               <button id="generateButton" type="submit">Generate Resume</button>
+               <button id="saveButton" style="display:none">Save Resume</button>
+            </div>
+                </div>
+        </form>
+        
+    </div>
+    <div id="resumeDisplay" class="resume-container" >
+        <h1>Resume</h1>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
