@@ -104,7 +104,7 @@ ResumeForm.addEventListener('submit', (event: Event) => {
   };
   localStorage.setItem(username, JSON.stringify(resumeData));
 
-    const shareableURL = `${window.location.origin}/milestone5/index.html?username=${encodeURIComponent(username)}`
+    const shareableURL = `${window.location.origin}?username=${encodeURIComponent(username)}`
     shareLink.href = shareableURL;
     shareableLinkContainer.style.display = 'block';
     shareLink.textContent = shareableURL;
