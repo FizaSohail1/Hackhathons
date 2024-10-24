@@ -1,202 +1,440 @@
 let html2pdf: any;
 
-const skillbtn = document.getElementById("addmoreSkills") as HTMLButtonElement;
-const SkillsList = document.querySelector(".skills-list") as HTMLDivElement;
-const ResumeForm = document.getElementById('resumeForm') as HTMLFormElement;
-const ResumeDisplay = document.getElementById('resumeDisplay') as HTMLDivElement;
+const coverPage = document.getElementById('cover-page') as HTMLElement;
+const  formPage = document.getElementById('form-page') as HTMLElement;
+const startButton = document.getElementById('start-button') as HTMLButtonElement;
+const addSkillbtn = document.getElementById("addmoreSkills") as HTMLButtonElement;
+const skillsList = document.querySelector('.skills-list');
+const resumeForm = document.getElementById('resumeForm') as HTMLFormElement;
+const resumeDisplay = document.getElementById('resumeDisplay') as HTMLDivElement;
+ const nextStepBtn = document.getElementById('nextStep') as HTMLButtonElement;
+ const personalInfoForm = document.getElementById('personalInfoForm') as HTMLDivElement
+const experienceForm = document.getElementById('experienceForm') as HTMLDivElement;
+const educationForm = document.getElementById('educationForm') as HTMLDivElement;
+const skillsForm = document.getElementById('skillsForm') as HTMLDivElement;
+const progress = document.getElementById('progress') as HTMLDivElement
+const generateButton = document.getElementById('generateButton') as HTMLButtonElement;
+
 const shareableLinkContainer = document.getElementById('shareContainer') as HTMLDivElement;
 const shareLink = document.getElementById('shareLink') as HTMLAnchorElement;
 const downloadPDF = document.getElementById('downloadPDF') as HTMLButtonElement;
 const mainHeading = document.getElementById('mainHeading') as HTMLHeadingElement;
 const shareHeading = document.getElementById('shareHeading') as HTMLHeadingElement;
 
-skillbtn.onclick = function () {
-    const newField = document.createElement('input') as HTMLInputElement;
-    newField.setAttribute('type', 'text');
-    newField.setAttribute('name', 'skills-list[]');
-    SkillsList.appendChild(newField);
-};
+startButton.addEventListener('click', () => {
+  coverPage.style.display = 'none';
+  formPage.style.display = 'block';
+});
 
+const addMoreExperienceBtn = document.getElementById('addMoreExperience') as HTMLButtonElement;
+const experienceFieldsContainer = document.getElementById('experienceFields') as HTMLDivElement;
+const addMoreEducationBtn = document.getElementById('addMoreEducation') as HTMLButtonElement;
+const educationFieldContainer = document.getElementById('educationFields') as HTMLDivElement;
 
-let ImageUrl:string = '';
-const ProfileImage = document.getElementById('img') as HTMLInputElement;
-const ImagePreview = document.getElementById('image') as HTMLImageElement
-
-ProfileImage.addEventListener('change',() =>{
-const PImage = ProfileImage.files?.[0];
-if(PImage){
-  const reader = new FileReader();
-  reader.onloadend = () => {
-    ImageUrl = reader.result as string
-  }
-  reader.readAsDataURL(PImage)
-}
-})
-ResumeForm.addEventListener('submit', (event: Event) => {
-    event.preventDefault();
-
-    const username = (document.getElementById('userName') as HTMLInputElement).value.trim();
-    const name = (document.getElementById('name') as HTMLInputElement).value;
-    const email = (document.getElementById('email') as HTMLInputElement).value;
-    const contact = (document.getElementById('contact') as HTMLInputElement).value;
-    const about = (document.getElementById('about') as HTMLTextAreaElement).value;
-    const degree = (document.getElementById('degree') as HTMLInputElement).value;
-    const academicYear = (document.getElementById('academicYear') as HTMLInputElement).value;
-    const school = (document.getElementById('school') as HTMLInputElement).value
-    const company = (document.getElementById('company') as HTMLInputElement).value;
-    const position = (document.getElementById('position') as HTMLInputElement).value;
-    const startDate = (document.getElementById('startDate') as HTMLInputElement).value;
-    const endDate = (document.getElementById('endDate') as HTMLInputElement).value
-    const description = (document.getElementById('experienceDescription') as HTMLTextAreaElement).value.trim();
-    const skillInputs = document.querySelectorAll('.skills-list input') as NodeListOf<HTMLInputElement>;
-    const skills = Array.from(skillInputs).map(skillInput => skillInput.value.trim()).filter(skill => skill !== '');
-
-    const resumeHTML = `
-        <div class="card">
-          <div class="personalInfo">
-            <img src="${ImageUrl}" alt="Profile Image" height="200px" width="200px" id="image"/>
-            <h2>Personal Information</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Contact:</strong> ${contact}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <div class="about">
-              <h3>About</h3>
-              <p>${about}</p>
+addMoreExperienceBtn.addEventListener('click', () => {
+    const experienceTemplate = document.createElement('div');
+    experienceTemplate.className = 'experience-section';
+    experienceTemplate.innerHTML = `
+        <div class="form-section">
+            <div class="form-group">
+                <label for="company">Employer</label>
+                <input type="text" name="company[]" placeholder="Ex: Microsoft" required />
             </div>
-          </div> 
-          <div class="secondSection">
-            <div class="experienceDisplay">
-              <h2>Work Experience</h2>
-              <p><strong>Company:</strong> ${company}</p>
-              <p><strong>Position:</strong> ${position}</p>
-              <p><strong>From:</strong> ${startDate}</p>
-              <p><strong>To:</strong> ${endDate}</p>
-              <p><strong>Description:</strong> ${description}</p>
+            <div class="form-group">
+                <label for="position">Job Title</label>
+                <input type="text" name="position[]" placeholder="Ex: Full Stack Developer" required />
             </div>
-            <section class="skills-container">
-              <h2>Skills</h2>
-              <ul class="skills-list">
-                ${skills.map(skill => `<li>${skill}</li>`).join('')}  
-              </ul>
-            </section>
-            <h2>Education</h2>
-            <p><strong>Degree:</strong> ${degree}</p>
-            <p><strong>Year:</strong> ${academicYear}</p>
-            <p><strong>School/College:</strong> ${school}</p>
-          </div>
         </div>
-    `;  
-    const resumeData = {
-      name,
-      email,
-      contact,
-      about,
-      company,
-      position,
-      startDate,
-      endDate,
-      description,
-      degree,
-      academicYear,
-      school,
-      skills,
-      ImageUrl 
-  };
-  localStorage.setItem(username, JSON.stringify(resumeData));
+        <div class="form-section">
+            <div class="form-group">
+                <label for="experienceDescription">Job Description</label>
+                <textarea name="experienceDescription[]" rows="5" required></textarea>
+            </div>
+        </div>
+        <div class="form-section">
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" name="startDate[]" required />
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input type="date" name="endDate[]" />
+            </div>
+        </div>
+    `;
+    experienceFieldsContainer.appendChild(experienceTemplate);
+});
 
-    const shareableURL = `${window.location.origin}?username=${encodeURIComponent(username)}`
-    shareLink.href = shareableURL;
-    shareableLinkContainer.style.display = 'block';
-    shareLink.textContent = shareableURL;
+addMoreEducationBtn.addEventListener('click', () => {
+  const educationTemplate = document.createElement('div');
+  educationTemplate.className = 'education-section';
+  educationTemplate.innerHTML = `
+      <div class="form-section">
+          <div class="form-group">
+              <label for="school">School/College</label>
+              <input type="text" name="school[]" required />
+          </div>
+          <div class="form-group">
+              <label for="degree">Qualification</label>
+              <input type="text" name="degree[]" placeholder="Ex: Bacheolars" required />
+          </div>
+      </div>
+      <div class="form-section">
+          <div class="form-group">
+              <label for="field">Field Of Study</label>
+              <input type="text" name="field[]" placeholder="Ex: Computer Science" required />
+          </div>
+          <div class="form-group">
+              <label for="year">Academic Year</label>
+              <input type="number" name="year[]" />
+          </div>
+      </div>
+  `;
+  educationFieldContainer.appendChild(educationTemplate);
+});
 
-    if (ResumeDisplay) {
-      ResumeDisplay.innerHTML = resumeHTML;
+ addSkillbtn.addEventListener('click' , () => {
+     const newField = document.createElement('input') as HTMLInputElement;
+     newField.type = 'text';
+     newField.setAttribute('name', 'skills-list[]');
+     newField.className = 'skills-input';
+    skillsList.appendChild(newField);  
+ });
+
+const imgField = document.getElementById('imgField') as HTMLInputElement;
+let imageUrl: string = '';
+
+imgField.addEventListener('change', () => {
+  if (imgField.files && imgField.files[0]) {
+    const file = imgField.files[0];
+  
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        // Store the image data URL in the imageUrl variable
+        imageUrl = e.target?.result as string;
+        console.log(imageUrl)
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      alert('Please select a valid image file.');
+    }
   }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (resumeForm) {
+      resumeForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevents page reload
+         
+        const username = (document.getElementById('userName') as HTMLInputElement).value.trim();
+        const firstName = document.getElementById('firstname') as HTMLInputElement;
+        const lastName = document.getElementById('lastname') as HTMLInputElement;
+        const profession = document.getElementById('profession') as HTMLInputElement;
+        const city = document.getElementById('city') as HTMLInputElement;
+        const country = document.getElementById('country') as HTMLInputElement;
+        const phone = document.getElementById('phone') as HTMLInputElement;
+        const email = document.getElementById('email') as HTMLInputElement;
+        const about = document.getElementById('about') as HTMLTextAreaElement;
+  
+        const skillInputs = document.querySelectorAll('.skills-list input') as NodeListOf<HTMLInputElement>;
+        const skills = Array.from(skillInputs).map(skillInput => skillInput.value).filter(skill => skill.trim() !== '');
+  
+        const companies = document.querySelectorAll('[name="company[]"]') as NodeListOf<HTMLInputElement>;
+        const positions = document.querySelectorAll('[name="position[]"]') as NodeListOf<HTMLInputElement>;
+        const descriptions = document.querySelectorAll('[name="experienceDescription[]"]') as NodeListOf<HTMLTextAreaElement>;
+        const startDates = document.querySelectorAll('[name="startDate[]"]') as NodeListOf<HTMLInputElement>;
+        const endDates = document.querySelectorAll('[name="endDate[]"]') as NodeListOf<HTMLInputElement>;
+  
+        let experienceHTML = '';
+        for (let i = 0; i < companies.length; i++) {
+          experienceHTML += `
+            <div class="experience-item editable-section">
+                <p><strong>Company:</strong> ${companies[i].value}</p>
+                <p><strong>Position:</strong> ${positions[i].value}</p>
+                <p><strong>From:</strong> ${startDates[i].value} <strong>to:</strong> ${endDates[i].value || 'Present'}</p>
+                <p><strong>Description:</strong> ${descriptions[i].value}</p>
+            </div>
+            <hr/>
+          `;
+        }
+        const schools = document.querySelectorAll('[name="school[]"]') as NodeListOf<HTMLInputElement>;
+        const degrees = document.querySelectorAll('[name="degree[]"]') as NodeListOf<HTMLInputElement>;
+        const fields = document.querySelectorAll('[name="field[]"]') as NodeListOf<HTMLInputElement>;
+        const years = document.querySelectorAll('[name="year[]"]') as NodeListOf<HTMLInputElement>;
+  
+        let educationHTML = '';
+        for (let i = 0; i < schools.length; i++) {
+          educationHTML += `
+            <div class="education-item editable-section">
+                <p><strong>School/College:</strong> ${schools[i].value}</p>
+                <p><strong>Qualification:</strong> ${degrees[i].value}</p>
+                <p><strong>Field Of Study:</strong> ${fields[i].value}</p>
+                <p><strong>Academic Year:</strong> ${years[i].value}</p>
+            </div>
+            <hr/>
+          `;
+        }
+  
+        // Generating Resume HTML
+        const resumeHTML = `
+          <div class="card">
+            <div class="left-side">
+              <div class="personalInfo editable-section">
+                <img src="${imageUrl}" style="width: 200px; height: 200px;" id="profileImage" />
+                <h1><strong>${firstName.value} ${lastName.value}</strong></h1>
+                <h4>${profession.value}</h4>
+                <div class="contactSection">
+                  <h2>Contact</h2>
+                  <p><strong>Phone:</strong> ${phone.value}</p>
+                  <p><strong>Email:</strong> ${email.value}</p>
+                  <p><strong>Address:</strong> ${city.value}, ${country.value}</p>
+                </div>
+                <div class="skills-container">
+                  <h2>Skills</h2>
+                  <ul class="skills-list">${skills.map(skill => `<li>${skill}</li>`).join('')}</ul>
+                </div>
+              </div>
+            </div>
+            <div class="secondSection">
+              <div class="about editable-section">
+                <h3>About Me</h3>
+                <p>${about.value}</p>
+                <hr/>
+              </div>
+              <div class="experienceAndEducationDisplay editable-section">
+                <h2>Work Experience</h2>
+                ${experienceHTML}
+                <h2>Education</h2>
+                ${educationHTML}
+              </div>
+            </div>
+          </div>
+         <div class="styleBtn">
+          <button id="editBtn">Edit Resume</button>
+          <button id="saveChanges" >Save Changes</button>
+         </div>
+        `;
+
+        const resumeData = {
+          firstName: firstName.value,
+          lastName: lastName.value,
+          phone: phone.value,
+          email: email.value,
+          profession: profession.value,
+          city: city.value,
+          country: country.value,
+          about: about.value,
+          companies: Array.from(companies).map(input => input.value),
+          positions: Array.from(positions).map(input => input.value),
+          startDates: Array.from(startDates).map(input => input.value),
+          endDates: Array.from(endDates).map(input => input.value),
+          descriptions: Array.from(descriptions).map(input => input.value),
+          degrees: Array.from(degrees).map(input => input.value),
+          years: Array.from(years).map(input => input.value),
+          schools: Array.from(schools).map(input => input.value),
+          fields: Array.from(fields).map(input => input.value),
+          skills,
+          imageUrl
+        };
+      localStorage.setItem(username, JSON.stringify(resumeData));
+    
+        const shareableURL = `${window.location.origin}?username=${encodeURIComponent(username)}`
+        shareLink.href = shareableURL;
+        shareableLinkContainer.style.display = 'block';
+        shareLink.textContent = shareableURL;
+    
+        if (resumeDisplay) {
+          resumeDisplay.innerHTML = resumeHTML;
+
+           const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
+  const saveBtn = document.getElementById('saveChanges') as HTMLButtonElement;
+  const editableSections = document.querySelectorAll('.editable-section') as NodeListOf<HTMLDivElement>;
+
+  editBtn.addEventListener('click', () => {
+    editableSections.forEach(section => {
+      section.contentEditable = 'true';
+    });
+    editBtn.style.display = 'block'; 
+    saveBtn.style.display = 'inline'; 
+    alert('You can now make changes to your resume.');
+  });
+
+  saveBtn.addEventListener('click', () => {
+    editableSections.forEach(section => {
+      section.contentEditable = 'false';
+    });
+    saveBtn.style.display = 'none'; 
+    editBtn.style.display = 'none'; 
+    downloadPDF.style.display = 'block';
+    alert('Changes Saved!');
+    });
+  }
+});
+    }
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username');
+  const urlParams = new URLSearchParams(window.location.search);
+  const username = urlParams.get('username');
 
-    if (username) {
-        ResumeForm.style.display = 'none';
-        mainHeading.style.display = 'none';
+  if (username) {
+    coverPage.style.display = 'none'
+      resumeForm.style.display = 'none';
+      mainHeading.style.display = 'none';
 
-        const savedResumeData = localStorage.getItem(username);
-        if (savedResumeData) {
-            const resumeData = JSON.parse(savedResumeData);
+      const savedResumeData = localStorage.getItem(username);
+      console.log(savedResumeData);
+      
+      if (savedResumeData) {
+          const resumeData = JSON.parse(savedResumeData);
 
-            const resumeHTML = `
-                <div class="card">
-                  <div class="personalInfo">
-                    <img src="${resumeData.ImageUrl}" alt="Profile Image" height="200px" width="200px" id="image"/>
-                    <h2>Personal Information</h2>
-                    <p><strong>Name:</strong> ${resumeData.name}</p>
-                    <p><strong>Contact:</strong> ${resumeData.contact}</p>
-                    <p><strong>Email:</strong> ${resumeData.email}</p>
-                    <div class="about">
-                      <h3>About</h3>
-                      <p>${resumeData.about}</p>
-                    </div>
-                  </div>
-                  <div class="secondSection">
-                    <div class="experienceDisplay">
-                      <h2>Work Experience</h2>
-                      <p><strong>Company:</strong> ${resumeData.company}</p>
-                      <p><strong>Position:</strong> ${resumeData.position}</p>
-                      <p><strong>From:</strong> ${resumeData.startDate}</p>
-                      <p><strong>To:</strong> ${resumeData.endDate}</p>
-                      <p><strong>Description:</strong> ${resumeData.description}</p>
-                    </div>
-                    <section class="skills-container">
-                      <h2>Skills</h2>
-                      <ul class="skills-list">
-                        ${resumeData.skills.map((skill: string) => `<li>${skill}</li>`).join('')}  
-                      </ul>
-                    </section>
-                    <h2>Education</h2>
-                    <p><strong>Degree:</strong> ${resumeData.degree}</p>
-                    <p><strong>Year:</strong> ${resumeData.academicYear}</p>
-                    <p><strong>School/College:</strong> ${resumeData.school}</p>
-                  </div>
-                </div>
+          console.log(resumeData);
+          
+
+          
+          const companies = document.querySelectorAll('[name="company[]"]') as NodeListOf<HTMLInputElement>;
+          const positions = document.querySelectorAll('[name="position[]"]') as NodeListOf<HTMLInputElement>;
+          const descriptions = document.querySelectorAll('[name="experienceDescription[]"]') as NodeListOf<HTMLTextAreaElement>;
+         const startDates = document.querySelectorAll('[name="startDate[]"]') as NodeListOf<HTMLInputElement>;
+         const endDates = document.querySelectorAll('[name="endDate[]"]') as NodeListOf<HTMLInputElement>;
+
+        let experienceHTML = '';
+        for (let i = 0; i < companies.length; i++) {
+    experienceHTML += `
+      <div class="experience-item editable-section">
+          <p><strong>Company:</strong> ${companies[i].value}</p>
+          <p><strong>Position:</strong> ${positions[i].value}</p>
+          <p><strong>From:</strong> ${startDates[i].value} <strong>to:</strong> ${endDates[i].value || 'Present'}</p>
+          <p><strong>Description:</strong> ${descriptions[i].value}</p>
+      </div>
+      <hr/>
+    `;
+  }      
+  const schools = document.querySelectorAll('[name="school[]"]') as NodeListOf<HTMLInputElement>;
+  const degrees = document.querySelectorAll('[name="degree[]"]') as NodeListOf<HTMLInputElement>;
+  const fields = document.querySelectorAll('[name="field[]"]') as NodeListOf<HTMLInputElement>;
+  const years = document.querySelectorAll('[name="year[]"]') as NodeListOf<HTMLInputElement>;
+
+  let educationHTML = '';
+  for (let i = 0; i < schools.length; i++) {
+    educationHTML += `
+      <div class="education-item editable-section">
+          <p><strong>School/College:</strong> ${schools[i].value}</p>
+          <p><strong>Qualification:</strong> ${degrees[i].value}</p>
+          <p><strong>Field Of Study:</strong> ${fields[i].value}</p>
+          <p><strong>Academic Year:</strong> ${years[i].value}</p>
+      </div>
+      <hr/>
             `;
+       }
+          const resumeHTML = `
+          <div class="card">
+            <div class="left-side">
+              <div class="personalInfo editable-section">
+                <img src="${resumeData.imageUrl}" style="width: 200px; height: 200px;" id="profileImage" />
+                <h1><strong>${resumeData.firstName} ${resumeData.lastName}</strong></h1>
+                <h4>${resumeData.professions}</h4>
+                <div class="contactSection">
+                  <h2>Contact</h2>
+                  <p><strong>Phone:</strong> ${resumeData.phone}</p>
+                  <p><strong>Email:</strong> ${resumeData.email}</p>
+                  <p><strong>Address:</strong> ${resumeData.city}, ${resumeData.countries}</p>
+                </div>
+                <div class="skills-container">
+                  <h2>Skills</h2>
+                  <ul class="skills-list">${resumeData.skills.map(skill => `<li>${skill}</li>`).join('')}</ul>
+                </div>
+              </div>
+            </div>
+            <div class="secondSection">
+              <div class="about editable-section"> 
+                <h3>About Me</h3>
+                <p>${resumeData.about}</p>
+                <hr/>
+              </div>
+              <div class="experienceAndEducationDisplay editable-section">
+                <h2>Work Experience</h2>
+                ${experienceHTML}
+                <h2>Education</h2>
+                ${educationHTML}
+              </div>
+            </div>
+          </div>
+         <div class="styleBtn">
+          <button id="editBtn">Edit Resume</button>
+          <button id="saveChanges" >Save Changes</button>
+         </div>
+        `;
 
-            ResumeDisplay.innerHTML = resumeHTML;
-        }
-    }
+          resumeDisplay.innerHTML = resumeHTML;
+      }
+  }
 });
+  
+let nextStep = 0;
+experienceForm.style.display = 'none';
+educationForm.style.display = 'none';
+skillsForm.style.display = 'none';
 
-const GenerateButton = document.getElementById('generateButton') as HTMLButtonElement;
-const saveButton = document.getElementById('saveButton') as HTMLButtonElement;
-let generated = false;
-GenerateButton.addEventListener('click', function () {
-    if (!generated) {
-        GenerateButton.textContent = "Edit Resume";
-        saveButton.style.display = 'inline-block';
-        generated = true;
-        shareHeading.style.display = 'flex';
-        shareLink.style.display = 'block';
-        
-    }
-});
 
-saveButton.addEventListener('click', function () {
-    ResumeForm.style.display = 'none';
-    mainHeading.style.display = 'none';
-    downloadPDF.style.display = 'block';
-    alert('Resume Saved Successfully');
-});
+generateButton.addEventListener('click',() => {
+  nextStep++;
+ experienceForm.style.display = 'none';
+ educationForm.style.display = 'none';
+ skillsForm.style.display = 'none';
+ resumeDisplay.style.display = 'none'
+
+ switch(nextStep){
+  case 1: experienceForm.style.display = 'block';
+          personalInfoForm.style.display = 'none';
+  break;
+  case 2: educationForm.style.display = 'block';
+  experienceForm.style.display = 'none';
+  break;
+  case 3 : skillsForm.style.display = 'block';
+  educationForm.style.display = 'none';
+  generateButton.textContent = 'Generate Resume';
+  break; 
+  case 4:  formPage.style.display = 'none';   
+       resumeDisplay.style.display = 'block';
+
+  const inputs = resumeForm.querySelectorAll('input');
+  inputs.forEach(input => {
+      input.disabled = true;  
+  });
+  break;
+ }
+
+ const progressPercentage = (nextStep / 4) * 100; 
+ progress.style.width = `${progressPercentage}%`;
+
+ shareHeading.style.display = 'flex';
+  shareLink.style.display = 'block';
+  downloadPDF.style.display = 'block';
+
+})
 
 // download PDF
 downloadPDF.addEventListener('click', function () {
-    if (ResumeDisplay && ResumeDisplay.innerHTML) {
-        const opt = {
-            filename: 'resume.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
+  if (resumeDisplay && resumeDisplay.innerHTML) {
+      // Add PDF-specific styling
+      resumeDisplay.classList.add('pdf-style');
 
-        html2pdf().from(ResumeDisplay).set(opt).save();
-    }
+      const opt = {
+          filename: 'resume.pdf',
+          image: { type: 'jpeg', quality: 100 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      // Generate PDF
+      html2pdf().from(resumeDisplay).set(opt).save().then(function () {
+          resumeDisplay.classList.remove('pdf-style');
+      });
+      resumeDisplay.style.width='800px'
+  }
 });
+
