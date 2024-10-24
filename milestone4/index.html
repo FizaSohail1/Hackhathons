@@ -7,71 +7,180 @@
     <title>Editable Resume Builder</title>
 </head>
 <body>
-    <h1>Editable Resume Builder</h1>
-    <div class="container">
-        <form action="" id="resumeForm">
-                <div class="personalInformation">
-                    <h2>Personal Info</h2>
-                    <div class="image">
-                        <label for="Profile Image">Profile Image</label>
-                        <input type="file" id="img" accept="image/*" required>
-                    </div>
-                    <label for="Full Name">Name</label>
-                    <input type="text" placeholder="Enter your name" id="name" required>
-                    <label for="Email">Email</label>
-                    <input type="email" placeholder="Enter your email" id="email" required>
-                    <label for="Phone">Phone No:</label>
-                    <input type="text" placeholder="Enter your Phone No" id="contact"required>
-                    <label for="About Me">About</label>
-                    <textarea type="text" rows="4" id="about" required></textarea>
-                </div>
-
-                <div class="secondSection">
-                <div class="Skills-container">
-                    <h2>Skills</h2>
-                    <div class="skills-list">
-                        <input type="text" id="skills">
-                        <input type="text" id="skills">
-                        <input type="text" id="skills">
-                    </div>
-                        <div class="addmore">
-                            <button id="addmoreSkills">Add Skills</button>
-                        </div>              
-                </div>
-
-            
-                <div class="experience">
-                    <h2>Work Experience</h2>
-                    <label for="company name">Employers</label>
-                    <input type="text" placeholder="" id="company"required>
-                    <label for="Position">Position</label>
-                    <input type="text" placeholder="" id="position"required>
-                    <label for="fromdate">Start date</label>
-                    <input type="date" id="startDate" required>
-                    <label for="To date">End date</label>
-                    <input type="date" id="endDate">
-                    <label for="Job description">Job description</label>
-                    <textarea type="text" rows="5" id="experienceDescription"required></textarea>
-                </div>
-                <div class="education">
-                    <h2>Education</h2>
-                    <label for="Degree">Qualification</label>
-                    <input type="text" id="degree"required>
-                    
-                    <label for="school/college/university">School/College/University</label>
-                    <input type="text" id="school" required>
-                    
-                    <label for="Job description" >Acadamic Year</label>
-                    <input type="text" placeholder="" id="academicYear"required>
-
-               <button id="generateButton" type="submit">Generate Resume</button>
-               <button id="saveButton" style="display:none">Save Resume</button>
+    <section id="cover-page">
+        <nav class="navbar">
+          <h1>Resume Builder</h1>
+        </nav>
+        <div class="hero">
+         <div>
+            <h1>Create Your Professional Resume Effortlessly</h1>
+            <p>Build a professional resume in just a few Minutes!</p>
+            <button id="start-button">Create Your Resume Now</button>
+         </div>
+         <div id="Image">
+            <img src="https://img.freepik.com/free-vector/resume-writing-service-abstract-concept_335657-3098.jpg" alt="main" height="400px" width="400px"/>
+         </div>
+        </div>
+        <footer class="footer">
+          <p>&copy; 2024 Resume Builder. All rights reserved.</p>
+        </footer>
+      </section>
+    <h1 id="heading">Dynamic Resume Builder</h1>
+  <div class="mainPage" id="form-page">
+      <div class="sidebar">
+        <h1>Resume Builder</h1>
+        <ul>
+          <li><span class="step-number">1</span> Personal Information</li>
+          <li><span class="step-number">2</span> Work Experience</li>
+          <li><span class="step-number">3</span> Education</li>
+          <li><span class="step-number">4</span> Skills</li>
+        </ul>
+         
+        <label for="resumecomplete" >Resume Completion</label>
+        <div class="resumeprogress">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>  
+        <form id="resumeForm" class="form-container">
+        <div id="personalInfoForm">
+          <h2>Enter Your Personal Information to Generate Your Resume</h2>
+          <p>Provide your details below to create a professional resume.</p>
+          <div class="form-section">
+              <div class="form-group">
+                <label for="Profile Image">Profile Image</label>
+                <input type="file" id="imgField" accept="image/*" required>
+              </div>
             </div>
+          <div class="form-section">
+              <div class="form-group">
+                  <label for="first-name">First Name</label>
+                  <input type="text" id="firstname" placeholder="Ex: Ali" required/>
+              </div>
+              <div class="form-group">
+                  <label for="Lastname">Last Name</label>
+                  <input type="text" id="lastname" placeholder="Ex: Raza " required/>
+              </div>
+          </div>
+          <div class="form-section">
+              <div class="form-group">
+                  <label for="profession">Profession</label>
+                  <input type="text" id="profession" placeholder="Ex:Web-Developer" required/>
+              </div>
+          </div>
+          <div class="form-section">
+              <div class="form-group">
+                  <label for="city-state">City - State</label>
+                  <input type="text" id="city" placeholder="Ex: Karachi, Sindh" >
+              </div>
+              <div class="form-group">
+                  <label for="country">Country</label>
+                  <input type="text" id="country" placeholder="Ex:Pakistan" required/>
+              </div>
+          </div>
+          <div class="form-section">
+              <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="tel" id="phone" placeholder="Ex: 0123-456789" />
+              </div>
+              <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" placeholder="Ex:abc@example.com" required />
+              </div>
+          </div>
+          <div class="form-section">
+              <div class="form-group">
+                  <label for="about">Summary</label>
+                  <textarea type="text" id="about" rows="7"></textarea>
+
+              </div>
+          </div>
+        </div>
+        <div id="experienceForm">
+            <h2>Your Work Experience</h2>
+            <p>Provide your details below to create a professional resume.</p>
+            <div id="experienceFields">
+                <div class="experience-section">
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="company">Employer</label>
+                            <input type="text" name="company[]" id="company" placeholder="Ex: Microsoft" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="position">Job Title</label>
+                            <input type="text" name="position[]" id="position" placeholder="Ex: Full Stack Developer" required />
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="experienceDescription">Job Description</label>
+                            <textarea name="experienceDescription[]" id="experienceDescription" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" name="startDate[]" id="startDate" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" name="endDate[]" id="endDate" />
+                        </div>
+                    </div>
                 </div>
-        </form>
-        
+            </div>
+          <button type="button" id="addMoreExperience">Add More Experience</button>
+        </div>
+      
+    
+        <div id="educationForm" >
+            <h2>Your Education</h2>
+            <p>Provide your details below to create a professional resume.</p>
+              <div id="educationFields">
+                <div id="education-section">
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="school"> School/College</label>
+                            <input type="text" name="school[]" id="school" placeholder="Ex: Oxford University" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="degree">Qualification</label>
+                            <input type="text" name="degree[]" id="degree"  placeholder="Ex: Bachelors" required>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="field">Field Of Study</label>
+                            <input type="text" name="field[]" id="field" placeholder="Ex: Computer Science" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Academic Year</label>
+                            <input type="number" name="year[]" id="year" placeholder="Ex: 2010" required>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          <button type="button" id="addMoreEducation">Add More Education</button>
+        </div>
+      
+
+        <div id="skillsForm">
+            <h2 >Your Technical Skills</h2>
+            <div class="form-section">
+                <div class="form-group">
+                    <div class="skills-list">
+                        <input type="text" id="skills" required>
+                        <input type="text" id="skills" required>
+                        <input type="text" id="skills" required>
+                        <input type="text" id="skills" required>
+                    </div>
+                </div>
+            </div>
+          <button type="button" id="addmoreSkills">Add More Skills</button>
+         </div>
+         <button id="generateButton" type="submit">Next</button>
+      </form>     
     </div>
-    <div id="resumeDisplay" class="resume-container" >
+    <div id="resumeDisplay" class="resume-container">
     </div>
     <script src="script.js"></script>
 </body>
