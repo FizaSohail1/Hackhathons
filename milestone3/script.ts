@@ -5,12 +5,12 @@ const addSkillbtn = document.getElementById("addmoreSkills") as HTMLButtonElemen
 const skillsList = document.querySelector('.skills-list');
 const resumeForm = document.getElementById('resumeForm') as HTMLFormElement;
 const resumeDisplay = document.getElementById('resumeDisplay') as HTMLDivElement;
- const nextStepBtn = document.getElementById('nextStep') as HTMLButtonElement;
  const personalInfoForm = document.getElementById('personalInfoForm') as HTMLDivElement
 const experienceForm = document.getElementById('experienceForm') as HTMLDivElement;
 const educationForm = document.getElementById('educationForm') as HTMLDivElement;
 const skillsForm = document.getElementById('skillsForm') as HTMLDivElement;
 const progress = document.getElementById('progress') as HTMLDivElement
+const nextStepBtn = document.getElementById('nextBtn') as HTMLButtonElement;
 const generateButton = document.getElementById('generateButton') as HTMLButtonElement;
 
 
@@ -222,37 +222,74 @@ let nextStep = 0;
 experienceForm.style.display = 'none';
 educationForm.style.display = 'none';
 skillsForm.style.display = 'none';
+generateButton.style.display = 'none'
+
+nextStepBtn.addEventListener('click', () => {
+
+  let requiredFieldsFill = true;
+
+  let requiredFields: HTMLInputElement[] = [];
+
+  if(nextStep === 0){
+    requiredFields = Array.from(personalInfoForm.querySelectorAll('[required]')) as HTMLInputElement[];
+  }
+  else if(nextStep === 1 ){
+    requiredFields = Array.from(experienceForm.querySelectorAll('[required]')) as HTMLInputElement[];
+  }
+  else if(nextStep === 2){
+    requiredFields = Array.from(educationForm.querySelectorAll('[required]')) as HTMLInputElement[];
+  }
+  else if(nextStep === 3){
+    requiredFields = Array.from(skillsForm.querySelectorAll('[required]')) as HTMLInputElement[];
+  }
+  requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+      requiredFieldsFill = false;
+
+    } 
+  });
+
+  if (requiredFieldsFill) {
+    nextStep++;
+    experienceForm.style.display = 'none';
+    educationForm.style.display = 'none';
+    skillsForm.style.display = 'none';
+    resumeDisplay.style.display = 'none';
+
+    switch (nextStep) {
+      case 1:
+        personalInfoForm.style.display = 'none'
+        experienceForm.style.display = 'block';
+        break;
+      case 2:
+        experienceForm.style.display = 'none';
+        educationForm.style.display = 'block';
+        break;
+      case 3:
+        experienceForm.style.display = 'none';
+        skillsForm.style.display = 'block';
+        educationForm.style.display = 'none';
+        nextStepBtn.style.display = 'none';
+        generateButton.style.display = 'block';
+        break;
+    }
+
+    // progress bar
+    const progressPercentage = (nextStep / 4) * 100;
+    progress.style.width = `${progressPercentage}%`;
+  } else {
+    alert('Please fill in all required fields.');
+  }
+});
 
 
 generateButton.addEventListener('click',() => {
-  nextStep++;
- experienceForm.style.display = 'none';
- educationForm.style.display = 'none';
- skillsForm.style.display = 'none';
- resumeDisplay.style.display = 'none'
+formPage.style.display = 'none';   
+       resumeDisplay.style.display = 'block';
 
- switch(nextStep){
-  case 1: experienceForm.style.display = 'block';
-          personalInfoForm.style.display = 'none';
-  break;
-  case 2: educationForm.style.display = 'block';
-  experienceForm.style.display = 'none';
-  break;
-  case 3 : skillsForm.style.display = 'block';
-  educationForm.style.display = 'none';
-  generateButton.textContent = 'Generate Resume';
-  break; 
-  case 4: formPage.style.display = 'none';   
-  resumeDisplay.style.display = 'block';
-
-  const inputs = resumeForm.querySelectorAll('input');
-  inputs.forEach(input => {
-      input.disabled = true;  
-  });
-  break;
- }
-
- const progressPercentage = (nextStep / 4) * 100; 
- progress.style.width = `${progressPercentage}%`;
+       const inputs = resumeForm.querySelectorAll('input');
+       inputs.forEach(input => {
+           input.disabled = true;  
+       });
 
 })

@@ -187,33 +187,82 @@ experienceForm.style.display = 'none';
 educationForm.style.display = 'none';
 skillsForm.style.display = 'none';
 generateButton.style.display = 'none';
+// nextStepBtn.addEventListener('click',() => {
+//   nextStep++;
+//  experienceForm.style.display = 'none';
+//  educationForm.style.display = 'none';
+//  skillsForm.style.display = 'none';
+//  resumeDisplay.style.display = 'none'
+//  switch(nextStep){
+//   case 1: experienceForm.style.display = 'block';
+//   break;
+//   case 2: educationForm.style.display = 'block';
+//   experienceForm.style.display = 'block';
+//   break;
+//   case 3 : 
+//   experienceForm.style.display = 'block';
+//   skillsForm.style.display = 'block';
+//   educationForm.style.display = 'block';
+//   nextStepBtn.style.display = 'none';
+//   generateButton.style.display = 'block'
+//   break; 
+//  }
+//  const progressPercentage = (nextStep / 4) * 100; 
+//  progress.style.width = `${progressPercentage}%`;
+//  shareHeading.style.display = 'flex';
+//   shareLink.style.display = 'block';
+//   downloadPDF.style.display = 'block'; 
+// })
 nextStepBtn.addEventListener('click', function () {
-    nextStep++;
-    experienceForm.style.display = 'none';
-    educationForm.style.display = 'none';
-    skillsForm.style.display = 'none';
-    resumeDisplay.style.display = 'none';
-    switch (nextStep) {
-        case 1:
-            experienceForm.style.display = 'block';
-            break;
-        case 2:
-            educationForm.style.display = 'block';
-            experienceForm.style.display = 'block';
-            break;
-        case 3:
-            experienceForm.style.display = 'block';
-            skillsForm.style.display = 'block';
-            educationForm.style.display = 'block';
-            nextStepBtn.style.display = 'none';
-            generateButton.style.display = 'block';
-            break;
+    var requiredFieldsFill = true;
+    var requiredFields = [];
+    if (nextStep === 0) {
+        requiredFields = Array.from(personalInfoForm.querySelectorAll('[required]'));
     }
-    var progressPercentage = (nextStep / 4) * 100;
-    progress.style.width = "".concat(progressPercentage, "%");
-    shareHeading.style.display = 'flex';
-    shareLink.style.display = 'block';
-    downloadPDF.style.display = 'block';
+    else if (nextStep === 1) {
+        requiredFields = Array.from(experienceForm.querySelectorAll('[required]'));
+    }
+    else if (nextStep === 2) {
+        requiredFields = Array.from(educationForm.querySelectorAll('[required]'));
+    }
+    else if (nextStep === 3) {
+        requiredFields = Array.from(skillsForm.querySelectorAll('[required]'));
+    }
+    requiredFields.forEach(function (field) {
+        if (!field.value.trim()) {
+            requiredFieldsFill = false;
+        }
+    });
+    if (requiredFieldsFill) {
+        nextStep++;
+        experienceForm.style.display = 'none';
+        educationForm.style.display = 'none';
+        skillsForm.style.display = 'none';
+        resumeDisplay.style.display = 'none';
+        switch (nextStep) {
+            case 1:
+                personalInfoForm.style.display = 'none';
+                experienceForm.style.display = 'block';
+                break;
+            case 2:
+                experienceForm.style.display = 'none';
+                educationForm.style.display = 'block';
+                break;
+            case 3:
+                experienceForm.style.display = 'none';
+                skillsForm.style.display = 'block';
+                educationForm.style.display = 'none';
+                nextStepBtn.style.display = 'none';
+                generateButton.style.display = 'block';
+                break;
+        }
+        // progress bar
+        var progressPercentage = (nextStep / 4) * 100;
+        progress.style.width = "".concat(progressPercentage, "%");
+    }
+    else {
+        alert('Please fill in all required fields.');
+    }
 });
 generateButton.addEventListener('click', function () {
     formPage.style.display = 'none';
@@ -222,6 +271,8 @@ generateButton.addEventListener('click', function () {
     inputs.forEach(function (input) {
         input.disabled = true;
     });
+    shareHeading.style.display = 'block';
+    downloadPDF.style.display = 'block';
 });
 // download PDF
 downloadPDF.addEventListener('click', function () {

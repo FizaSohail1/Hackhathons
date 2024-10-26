@@ -5,12 +5,12 @@ var addSkillbtn = document.getElementById("addmoreSkills");
 var skillsList = document.querySelector('.skills-list');
 var resumeForm = document.getElementById('resumeForm');
 var resumeDisplay = document.getElementById('resumeDisplay');
-var nextStepBtn = document.getElementById('nextStep');
 var personalInfoForm = document.getElementById('personalInfoForm');
 var experienceForm = document.getElementById('experienceForm');
 var educationForm = document.getElementById('educationForm');
 var skillsForm = document.getElementById('skillsForm');
 var progress = document.getElementById('progress');
+var nextStepBtn = document.getElementById('nextBtn');
 var generateButton = document.getElementById('generateButton');
 startButton.addEventListener('click', function () {
     coverPage.style.display = 'none';
@@ -101,35 +101,63 @@ var nextStep = 0;
 experienceForm.style.display = 'none';
 educationForm.style.display = 'none';
 skillsForm.style.display = 'none';
-generateButton.addEventListener('click', function () {
-    nextStep++;
-    experienceForm.style.display = 'none';
-    educationForm.style.display = 'none';
-    skillsForm.style.display = 'none';
-    resumeDisplay.style.display = 'none';
-    switch (nextStep) {
-        case 1:
-            experienceForm.style.display = 'block';
-            personalInfoForm.style.display = 'none';
-            break;
-        case 2:
-            educationForm.style.display = 'block';
-            experienceForm.style.display = 'none';
-            break;
-        case 3:
-            skillsForm.style.display = 'block';
-            educationForm.style.display = 'none';
-            generateButton.textContent = 'Generate Resume';
-            break;
-        case 4:
-            formPage.style.display = 'none';
-            resumeDisplay.style.display = 'block';
-            var inputs = resumeForm.querySelectorAll('input');
-            inputs.forEach(function (input) {
-                input.disabled = true;
-            });
-            break;
+generateButton.style.display = 'none';
+nextStepBtn.addEventListener('click', function () {
+    var requiredFieldsFill = true;
+    var requiredFields = [];
+    if (nextStep === 0) {
+        requiredFields = Array.from(personalInfoForm.querySelectorAll('[required]'));
     }
-    var progressPercentage = (nextStep / 4) * 100;
-    progress.style.width = "".concat(progressPercentage, "%");
+    else if (nextStep === 1) {
+        requiredFields = Array.from(experienceForm.querySelectorAll('[required]'));
+    }
+    else if (nextStep === 2) {
+        requiredFields = Array.from(educationForm.querySelectorAll('[required]'));
+    }
+    else if (nextStep === 3) {
+        requiredFields = Array.from(skillsForm.querySelectorAll('[required]'));
+    }
+    requiredFields.forEach(function (field) {
+        if (!field.value.trim()) {
+            requiredFieldsFill = false;
+        }
+    });
+    if (requiredFieldsFill) {
+        nextStep++;
+        experienceForm.style.display = 'none';
+        educationForm.style.display = 'none';
+        skillsForm.style.display = 'none';
+        resumeDisplay.style.display = 'none';
+        switch (nextStep) {
+            case 1:
+                personalInfoForm.style.display = 'none';
+                experienceForm.style.display = 'block';
+                break;
+            case 2:
+                experienceForm.style.display = 'none';
+                educationForm.style.display = 'block';
+                break;
+            case 3:
+                experienceForm.style.display = 'none';
+                skillsForm.style.display = 'block';
+                educationForm.style.display = 'none';
+                nextStepBtn.style.display = 'none';
+                generateButton.style.display = 'block';
+                break;
+        }
+        // progress bar
+        var progressPercentage = (nextStep / 4) * 100;
+        progress.style.width = "".concat(progressPercentage, "%");
+    }
+    else {
+        alert('Please fill in all required fields.');
+    }
+});
+generateButton.addEventListener('click', function () {
+    formPage.style.display = 'none';
+    resumeDisplay.style.display = 'block';
+    var inputs = resumeForm.querySelectorAll('input');
+    inputs.forEach(function (input) {
+        input.disabled = true;
+    });
 });

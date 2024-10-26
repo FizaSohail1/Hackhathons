@@ -389,6 +389,9 @@ form button:hover {
     margin-left: 3%;
     margin-bottom: 2%;
 }
+.asteric{
+    color: red;
+}
 @media(min-width:768px){
     .hero{
         display: flex;
@@ -457,8 +460,8 @@ form button:hover {
         gap: 20px;
         margin: 20px auto;
     }
-    #nextStep{
-        width: 30%;
+    #nextBtn{
+        width: 100%;
         margin-left: 0; 
         margin-right: 0;
     }

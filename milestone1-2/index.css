@@ -1,11 +1,21 @@
 .container{
    display: flex;
+   width: 1000px;
+   margin: 0 auto;
+   border:#444444 1px solid;
 }
 .left-card{
-    background-color: rgb(3, 24, 3);
+    /* background-color: rgb(0, 1, 51);
     color:white;
-    width: 350px;
-    border-radius: 14px;
+    width: 240px;
+    border-radius: 14px; */
+    background-color: #030033;
+    color: white;
+    width: 240px; 
+    height: auto; 
+    top: 0;
+    left: 0;
+    padding: 10px;
 }
 .image{
     text-align: center;
@@ -85,9 +95,9 @@
 .togglebtn button{
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #0a2008;
+    background-color: #ffbb00;
     color: #ffffff;
-    border-radius: 8px;
+    border-radius: 15px;
     font-size: 1rem;
     cursor: pointer;
     margin-left: 30%;
@@ -96,7 +106,7 @@
 
 .togglebtn button:hover {
     background-color: #fff;
-    color: #123012;
+    color: #010c3b;
     font-size: 1rem;
 }
 .right-section {
@@ -115,13 +125,11 @@ hr {
 .right-section h2 {
     font-size: 30px;
     margin-bottom: 12px;
-    color: #123012;
+    color: #000436;
     padding: 4px;
     width: 250px; 
-    text-align: center;
-    border-radius: 35px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 2%;
+
 }
 
 .right-section h3, .right-section p, .education h3, .education p {
@@ -142,10 +150,10 @@ hr {
 }
 
 .education {
-    padding: 20px;
     margin-top: 20px; 
 }
 .education li{
     margin-top: 20px;
     margin-bottom: 10px;
 }
+

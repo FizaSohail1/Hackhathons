@@ -13,6 +13,7 @@ const experienceForm = document.getElementById('experienceForm') as HTMLDivEleme
 const educationForm = document.getElementById('educationForm') as HTMLDivElement;
 const skillsForm = document.getElementById('skillsForm') as HTMLDivElement;
 const progress = document.getElementById('progress') as HTMLDivElement
+
 const generateButton = document.getElementById('generateButton') as HTMLButtonElement;
 
 const shareableLinkContainer = document.getElementById('shareContainer') as HTMLDivElement;
@@ -376,37 +377,64 @@ educationForm.style.display = 'none';
 skillsForm.style.display = 'none';
 generateButton.style.display = 'none'
 
+nextStepBtn.addEventListener('click', () => {
 
-nextStepBtn.addEventListener('click',() => {
-  nextStep++;
- experienceForm.style.display = 'none';
- educationForm.style.display = 'none';
- skillsForm.style.display = 'none';
- resumeDisplay.style.display = 'none'
+  let requiredFieldsFill = true;
 
- switch(nextStep){
-  case 1: experienceForm.style.display = 'block';
-        
-  break;
-  case 2: educationForm.style.display = 'block';
-  experienceForm.style.display = 'block';
-  break;
-  case 3 : 
-  experienceForm.style.display = 'block';
-  skillsForm.style.display = 'block';
-  educationForm.style.display = 'block';
-  nextStepBtn.style.display = 'none';
-  generateButton.style.display = 'block'
-  break; 
- }
+  let requiredFields: HTMLInputElement[] = [];
 
- const progressPercentage = (nextStep / 4) * 100; 
- progress.style.width = `${progressPercentage}%`;
+  if(nextStep === 0){
+    requiredFields = Array.from(personalInfoForm.querySelectorAll('[required]')) as HTMLInputElement[];
+  }
+  else if(nextStep === 1 ){
+    requiredFields = Array.from(experienceForm.querySelectorAll('[required]')) as HTMLInputElement[];
+  }
+  else if(nextStep === 2){
+    requiredFields = Array.from(educationForm.querySelectorAll('[required]')) as HTMLInputElement[];
+  }
+  else if(nextStep === 3){
+    requiredFields = Array.from(skillsForm.querySelectorAll('[required]')) as HTMLInputElement[];
+  }
+  requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+      requiredFieldsFill = false;
 
- shareHeading.style.display = 'flex';
-  shareLink.style.display = 'block';
-  downloadPDF.style.display = 'block'; 
-})
+    } 
+  });
+
+  if (requiredFieldsFill) {
+    nextStep++;
+    experienceForm.style.display = 'none';
+    educationForm.style.display = 'none';
+    skillsForm.style.display = 'none';
+    resumeDisplay.style.display = 'none';
+
+    switch (nextStep) {
+      case 1:
+        personalInfoForm.style.display = 'none'
+        experienceForm.style.display = 'block';
+        break;
+      case 2:
+        experienceForm.style.display = 'none';
+        educationForm.style.display = 'block';
+        break;
+      case 3:
+        experienceForm.style.display = 'none';
+        skillsForm.style.display = 'block';
+        educationForm.style.display = 'none';
+        nextStepBtn.style.display = 'none';
+        generateButton.style.display = 'block';
+        break;
+    }
+
+    // progress bar
+    const progressPercentage = (nextStep / 4) * 100;
+    progress.style.width = `${progressPercentage}%`;
+  } else {
+    alert('Please fill in all required fields.');
+  }
+});
+
 
 generateButton.addEventListener('click' , () => {
 
@@ -417,6 +445,9 @@ generateButton.addEventListener('click' , () => {
        inputs.forEach(input => {
            input.disabled = true;  
        });
+
+       shareHeading.style.display = 'block'
+       downloadPDF.style.display = 'block'
  })
 
 // download PDF
