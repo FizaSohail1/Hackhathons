@@ -118,7 +118,6 @@ resumeForm.addEventListener('submit', function (event) {
         skills: skills,
         imageUrl: imageUrl
     };
-    console.log(resumeData);
     localStorage.setItem(username, JSON.stringify(resumeData));
     var shareableURL = "".concat(window.location.origin, "?username=").concat(encodeURIComponent(username));
     shareLink.href = shareableURL;
@@ -156,10 +155,8 @@ window.addEventListener('DOMContentLoaded', function () {
         resumeForm.style.display = 'none';
         mainHeading.style.display = 'none';
         var savedResumeData = localStorage.getItem(userName);
-        console.log('no data', savedResumeData);
         if (savedResumeData) {
             var resumeData = JSON.parse(savedResumeData);
-            console.log('saved data', userName, resumeData);
             var companies = document.querySelectorAll('[name="company[]"]');
             var positions = document.querySelectorAll('[name="position[]"]');
             var descriptions = document.querySelectorAll('[name="experienceDescription[]"]');
@@ -187,32 +184,7 @@ experienceForm.style.display = 'none';
 educationForm.style.display = 'none';
 skillsForm.style.display = 'none';
 generateButton.style.display = 'none';
-// nextStepBtn.addEventListener('click',() => {
-//   nextStep++;
-//  experienceForm.style.display = 'none';
-//  educationForm.style.display = 'none';
-//  skillsForm.style.display = 'none';
-//  resumeDisplay.style.display = 'none'
-//  switch(nextStep){
-//   case 1: experienceForm.style.display = 'block';
-//   break;
-//   case 2: educationForm.style.display = 'block';
-//   experienceForm.style.display = 'block';
-//   break;
-//   case 3 : 
-//   experienceForm.style.display = 'block';
-//   skillsForm.style.display = 'block';
-//   educationForm.style.display = 'block';
-//   nextStepBtn.style.display = 'none';
-//   generateButton.style.display = 'block'
-//   break; 
-//  }
-//  const progressPercentage = (nextStep / 4) * 100; 
-//  progress.style.width = `${progressPercentage}%`;
-//  shareHeading.style.display = 'flex';
-//   shareLink.style.display = 'block';
-//   downloadPDF.style.display = 'block'; 
-// })
+resumeDisplay.style.display = 'block';
 nextStepBtn.addEventListener('click', function () {
     var requiredFieldsFill = true;
     var requiredFields = [];

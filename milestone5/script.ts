@@ -238,7 +238,6 @@ resumeForm.addEventListener('submit', function (event) {
           skills,
           imageUrl
         };
-         console.log(resumeData);
          localStorage.setItem(username, JSON.stringify(resumeData));
 
          const shareableURL = `${window.location.origin}?username=${encodeURIComponent(username)}`
@@ -285,12 +284,9 @@ window.addEventListener('DOMContentLoaded', () => {
       mainHeading.style.display = 'none';
 
       const savedResumeData = localStorage.getItem(userName);
-      console.log('no data',savedResumeData)
       
       if (savedResumeData) {
           const resumeData = JSON.parse(savedResumeData);
-
-          console.log('saved data',userName,resumeData);
           
           const companies = document.querySelectorAll('[name="company[]"]') as NodeListOf<HTMLInputElement>;
           const positions = document.querySelectorAll('[name="position[]"]') as NodeListOf<HTMLInputElement>;
@@ -376,6 +372,7 @@ experienceForm.style.display = 'none';
 educationForm.style.display = 'none';
 skillsForm.style.display = 'none';
 generateButton.style.display = 'none'
+resumeDisplay.style.display = 'block'
 
 nextStepBtn.addEventListener('click', () => {
 
