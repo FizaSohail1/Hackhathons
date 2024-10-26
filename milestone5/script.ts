@@ -7,7 +7,7 @@ const addSkillbtn = document.getElementById("addmoreSkills") as HTMLButtonElemen
 const skillsList = document.querySelector('.skills-list');
 const resumeForm = document.getElementById('resumeForm') as HTMLFormElement;
 const resumeDisplay = document.getElementById('resumeDisplay') as HTMLDivElement;
- const nextStepBtn = document.getElementById('nextStep') as HTMLButtonElement;
+ const nextStepBtn = document.getElementById('nextBtn') as HTMLButtonElement;
  const personalInfoForm = document.getElementById('personalInfoForm') as HTMLDivElement
 const experienceForm = document.getElementById('experienceForm') as HTMLDivElement;
 const educationForm = document.getElementById('educationForm') as HTMLDivElement;
@@ -124,11 +124,8 @@ imgField.addEventListener('change', () => {
   }
 });
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    if (resumeForm) {
-      resumeForm.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevents page reload
+resumeForm.addEventListener('submit', function (event) {
+     event.preventDefault(); // Prevents page reload
          
         const username = (document.getElementById('userName') as HTMLInputElement).value.trim();
         const firstName = document.getElementById('firstname') as HTMLInputElement;
@@ -240,16 +237,18 @@ document.addEventListener('DOMContentLoaded', function () {
           skills,
           imageUrl
         };
-      localStorage.setItem(username, JSON.stringify(resumeData));
-    
-        const shareableURL = `${window.location.origin}?username=${encodeURIComponent(username)}`
-        shareLink.href = shareableURL;
-        shareableLinkContainer.style.display = 'block';
-        shareLink.textContent = shareableURL;
-    
-        if (resumeDisplay) {
-          resumeDisplay.innerHTML = resumeHTML;
+         console.log(resumeData);
+         localStorage.setItem(username, JSON.stringify(resumeData));
 
+         const shareableURL = `${window.location.origin}?username=${encodeURIComponent(username)}`
+         shareLink.href = shareableURL;
+         shareableLinkContainer.style.display = 'block';
+         shareLink.textContent = shareableURL;
+     
+         if (resumeDisplay) {
+           resumeDisplay.innerHTML = resumeHTML;
+       }
+  
            const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
   const saveBtn = document.getElementById('saveChanges') as HTMLButtonElement;
   const editableSections = document.querySelectorAll('.editable-section') as NodeListOf<HTMLDivElement>;
@@ -272,29 +271,25 @@ document.addEventListener('DOMContentLoaded', function () {
     downloadPDF.style.display = 'block';
     alert('Changes Saved!');
     });
-  }
-});
-    }
+  
 });
 
 window.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const username = urlParams.get('username');
+  const userName = urlParams.get('username');
 
-  if (username) {
+  if (userName) {
     coverPage.style.display = 'none'
       resumeForm.style.display = 'none';
       mainHeading.style.display = 'none';
 
-      const savedResumeData = localStorage.getItem(username);
-      console.log(savedResumeData);
+      const savedResumeData = localStorage.getItem(userName);
+      console.log('no data',savedResumeData)
       
       if (savedResumeData) {
           const resumeData = JSON.parse(savedResumeData);
 
-          console.log(resumeData);
-          
-
+          console.log('saved data',userName,resumeData);
           
           const companies = document.querySelectorAll('[name="company[]"]') as NodeListOf<HTMLInputElement>;
           const positions = document.querySelectorAll('[name="position[]"]') as NodeListOf<HTMLInputElement>;
@@ -379,9 +374,10 @@ let nextStep = 0;
 experienceForm.style.display = 'none';
 educationForm.style.display = 'none';
 skillsForm.style.display = 'none';
+generateButton.style.display = 'none'
 
 
-generateButton.addEventListener('click',() => {
+nextStepBtn.addEventListener('click',() => {
   nextStep++;
  experienceForm.style.display = 'none';
  educationForm.style.display = 'none';
@@ -390,23 +386,16 @@ generateButton.addEventListener('click',() => {
 
  switch(nextStep){
   case 1: experienceForm.style.display = 'block';
-          personalInfoForm.style.display = 'none';
+        
   break;
   case 2: educationForm.style.display = 'block';
-  experienceForm.style.display = 'none';
+  experienceForm.style.display = 'block';
   break;
   case 3 : skillsForm.style.display = 'block';
-  educationForm.style.display = 'none';
-  generateButton.textContent = 'Generate Resume';
+  educationForm.style.display = 'block';
+  nextStepBtn.style.display = 'none';
+  generateButton.style.display = 'block'
   break; 
-  case 4:  formPage.style.display = 'none';   
-       resumeDisplay.style.display = 'block';
-
-  const inputs = resumeForm.querySelectorAll('input');
-  inputs.forEach(input => {
-      input.disabled = true;  
-  });
-  break;
  }
 
  const progressPercentage = (nextStep / 4) * 100; 
@@ -414,14 +403,23 @@ generateButton.addEventListener('click',() => {
 
  shareHeading.style.display = 'flex';
   shareLink.style.display = 'block';
-  downloadPDF.style.display = 'block';
-
+  downloadPDF.style.display = 'block'; 
 })
+
+generateButton.addEventListener('click' , () => {
+
+  formPage.style.display = 'none';   
+       resumeDisplay.style.display = 'block';
+
+       const inputs = resumeForm.querySelectorAll('input');
+       inputs.forEach(input => {
+           input.disabled = true;  
+       });
+ })
 
 // download PDF
 downloadPDF.addEventListener('click', function () {
   if (resumeDisplay && resumeDisplay.innerHTML) {
-      // Add PDF-specific styling
       resumeDisplay.classList.add('pdf-style');
 
       const opt = {
@@ -437,4 +435,3 @@ downloadPDF.addEventListener('click', function () {
       resumeDisplay.style.width='800px'
   }
 });
-
