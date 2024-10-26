@@ -391,7 +391,9 @@ nextStepBtn.addEventListener('click',() => {
   case 2: educationForm.style.display = 'block';
   experienceForm.style.display = 'block';
   break;
-  case 3 : skillsForm.style.display = 'block';
+  case 3 : 
+  experienceForm.style.display = 'block';
+  skillsForm.style.display = 'block';
   educationForm.style.display = 'block';
   nextStepBtn.style.display = 'none';
   generateButton.style.display = 'block'
